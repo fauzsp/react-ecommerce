@@ -6,7 +6,7 @@ const MenuItem = ({ title, imageUrl, linkUrl, size, history, match }) => {
   return (
     <div
       onClick={() => history.push(`${match.url}${linkUrl}`)}
-      className={`${size} menu-item`}
+      className={`${(size && size && "menu-item") || "menu-item"}`}
     >
       <div
         className="background-image"
