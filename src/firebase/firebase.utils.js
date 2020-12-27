@@ -18,12 +18,11 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 export const checkUserAuth = async (userAuth, additionalInfo) => {
-  if (!userAuth) return console.log(userAuth, "user not exists");
+  if (!userAuth) return console.log("user not exist");
   const userData = firestore.doc(`users/${userAuth.uid}`);
-  const snapShot = await userData.get();
-  if (!snapShot.exists) {
-    console.log(snapShot, "snapshot");
-    const { displayName, email } = userAuth;
+  const snapShotData = await userData.get();
+  if (!snapShotData.exists) {
+    const { email, displayName } = userAuth;
     const createDate = new Date();
     try {
       await userData.set({
@@ -33,7 +32,7 @@ export const checkUserAuth = async (userAuth, additionalInfo) => {
         ...additionalInfo,
       });
     } catch (err) {
-      console.log(err.message, "error message");
+      console.log(err.message);
     }
   }
   return userData;

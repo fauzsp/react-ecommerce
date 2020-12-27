@@ -6,41 +6,45 @@ import HomePage from "./pages/homepage-component/homepage.component.jsx";
 import SignInAndSignUp from "./pages/signin-signup/signin-signup.component.jsx";
 import ShopPage from "./pages/shop/shop.component.jsx";
 import { auth, checkUserAuth } from "./firebase/firebase.utils";
+import { connect } from "react-redux";
+import { setCurrentUser } from "./redux/user/user.actions";
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {
-      currentUser: null,
-      showHeader: false,
-    };
   }
+
   unsubscribeFromAuth = null;
   componentDidMount() {
+    const { setCurrentUser } = this.props;
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userRef = await checkUserAuth(user);
-        console.log(userRef, "hello");
-        userRef.onSnapshot((snapshot) => {
-          this.setState(
-            {
-              currentUser: {
-                id: snapshot.id,
-                ...snapshot.data(),
-              },
+        try {
+          userRef.onSnapshot((snapshot) => {
+            console.log(snapshot);
+            setCurrentUser({
+              id: snapshot.id,
+              exists: snapshot.exists,
               showHeader: true,
-            },
-            () => {
-              console.log(this.state);
-            }
-          );
-        });
+              ...snapshot.data(),
+            });
+          });
+        } catch (err) {
+          console.log(err.message);
+        }
       } else {
-        this.setState({
+        setCurrentUser({
           showHeader: true,
         });
-        console.log(this.state, "user does not exist");
       }
+      setCurrentUser(user);
+
+      // else {
+      //   setCurrentUser({
+      //     showHeader: true,
+      //   });
+      // }
     });
   }
   // componentDidUpdate(prevProps, prevState) {
@@ -51,17 +55,9 @@ class App extends React.Component {
   //   }
   // }
   render() {
-    const handleClick = (e) => {
-      auth.signOut();
-      window.location.reload();
-    };
     return (
       <div>
-        <Header
-          currentUser={this.state.currentUser}
-          showHeader={this.state.showHeader}
-          handleClick={handleClick}
-        />
+        <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop" component={ShopPage} />
@@ -72,4 +68,7 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+export default connect(null, mapDispatchToProps)(App);

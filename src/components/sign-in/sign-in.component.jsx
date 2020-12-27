@@ -19,15 +19,18 @@ class SignIn extends React.Component {
   render() {
     const handleSubmit = async (e) => {
       e.preventDefault();
-      const { email, password } = this.state;
+
       try {
-        await auth.signInWithEmailAndPassword(email, password);
+        await auth.signInWithEmailAndPassword(
+          this.state.email,
+          this.state.password
+        );
         this.setState({
           email: "",
           password: "",
         });
       } catch (err) {
-        console.log(err.message);
+        console.log(err.message, "user not exists");
       }
       this.setState({
         email: "",
