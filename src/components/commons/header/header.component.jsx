@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as HeaderLogo } from "../../../assets/images/header-logo.svg";
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropDown from "../cart-dropdown/cart-dropdown.component";
 import { connect } from "react-redux";
 import { auth } from "../../../firebase/firebase.utils.js";
 import "./header.component.scss";
 
-const Header = ({ currentUser, showHeader }) => {
+const Header = ({ currentUser, showHeader, hidden }) => {
   const handleClick = function () {
     if (currentUser !== null) {
       auth
@@ -28,9 +30,6 @@ const Header = ({ currentUser, showHeader }) => {
         <Link to={"/shop"} className="option">
           SHOP
         </Link>
-        <Link to={"/cart"} className="option">
-          CART
-        </Link>
         {showHeader ? (
           <div>
             {currentUser ? (
@@ -44,14 +43,20 @@ const Header = ({ currentUser, showHeader }) => {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      {hidden ? null : <CartDropDown />}
     </div>
   );
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = ({
+  user: { currentUser, showHeader },
+  cart: { hidden },
+}) => {
   return {
-    currentUser: state.user.currentUser,
-    showHeader: state.user.showHeader,
+    currentUser,
+    showHeader,
+    hidden,
   };
 };
 
