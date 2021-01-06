@@ -1,4 +1,8 @@
-const ToggleCartHidden = {
+export const ToggleCartHidden = {
   type: "TOGGLE_CART_HIDDEN",
 };
-export default ToggleCartHidden;
+
+export const addItem = (item) => ({
+  type: "ADD_ITEM",
+  payload: item,
+});
