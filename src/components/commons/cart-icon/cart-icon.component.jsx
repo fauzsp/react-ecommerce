@@ -8,13 +8,22 @@ import {
 import "./cart-icon.component.scss";
 
 const CartIcon = ({ ToggleCartHidden, cartItems }) => {
+  function checkQauntity(quan) {
+    let cartQuantity = 0;
+    if (cartItems.length > 0) {
+      console.log("exist");
+      return (cartQuantity = quan.quantity);
+    }
+    return cartQuantity;
+  }
   return (
     <div className="cart-icon">
       <ShopppingIcon onClick={ToggleCartHidden} className="shopping-icon" />
       <span className="item-count">
-        {cartItems.map((cartItem) => {
-          return <span>{cartItem.quantity}</span>;
+        {cartItems.map((cartItem, key) => {
+          return <span key={key}>{checkQauntity(cartItem)}</span>;
         })}
+        {checkQauntity(cartItems)}
       </span>
     </div>
   );
