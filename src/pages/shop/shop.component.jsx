@@ -1,8 +1,5 @@
 import React from "react";
 import { Route } from "react-router-dom";
-// import { connect } from "react-redux";
-// import { createStructuredSelector } from "reselect";
-// import { selectCollections } from "../../redux/shop/shop.selector";
 import CategoryPage from "../category/category-page.component";
 import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
 import "./shop.component.scss";
