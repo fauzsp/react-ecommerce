@@ -6,7 +6,7 @@ const MenuItem = ({ title, imageUrl, linkUrl, size, history, match }) => {
   return (
     <div
       onClick={() => history.push(`${match.url}${linkUrl}`)}
-      className={`${size} menu-item`}
+      className={`${(size && size && "menu-item") || "menu-item"}`}
     >
       <div
         className="background-image"
@@ -14,7 +14,7 @@ const MenuItem = ({ title, imageUrl, linkUrl, size, history, match }) => {
       >
         <div className="content">
           <h1 className="title">{title.toUpperCase()}</h1>
-          <span className="subtitle">SHOP NOW</span>
+          <span className="subtitle">SHOP HERE NOW</span>
         </div>
       </div>
     </div>
