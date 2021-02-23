@@ -11,7 +11,7 @@ import {
   selectShowHeader,
   selecthidden,
 } from "../../../redux/user/user.selectors.js";
-import "./header.component.scss";
+import {OptionDiv, OptionLink, OptionsContainer, LogoContainer, HeaderContainer} from "./header.styles";
 
 const Header = ({ currentUser, showHeader, hidden }) => {
   const handleClick = function () {
@@ -27,32 +27,31 @@ const Header = ({ currentUser, showHeader, hidden }) => {
     }
   };
   return (
-    <div className="header">
-      <Link className="logo-container" to={"/"}>
-        <HeaderLogo className="logo" />
-      </Link>
-      <div className="options">
-        <div className="sample"></div>
-        <Link to={"/shop"} className="option">
+    <HeaderContainer>
+      <LogoContainer to={"/"}>
+        <HeaderLogo />
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to={"/shop"}>
           SHOP
-        </Link>
+        </OptionLink>
         {showHeader ? (
           <div>
             {currentUser ? (
-              <div onClick={handleClick} className="option">
+              <OptionDiv onClick={handleClick}>
                 SIGN OUT
-              </div>
+              </OptionDiv>
             ) : null}
           </div>
         ) : (
-          <Link to={"/signin"} className="option">
+          <OptionLink to={"/signin"}>
             SIGN IN
-          </Link>
+          </OptionLink>
         )}
         <CartIcon />
-      </div>
+      </OptionsContainer>
       {hidden ? null : <CartDropDown />}
-    </div>
+    </HeaderContainer>
   );
 };
 const mapStateToProps = createStructuredSelector({
