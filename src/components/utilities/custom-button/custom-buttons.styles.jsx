@@ -1,40 +1,39 @@
-import styled, {css} from "styled-components";
-
+import styled, { css } from "styled-components";
 
 const buttonStyles = css`
   background-color: black;
   color: white;
-  border:none;
+  border: none;
   &:hover {
-      background-color: white;
-      color: black;
-      border:1px solid black;
-  }
-`
-const getButtonStyles = props => {
-    if(props.isGoogleSignIn) {
-        return googleSignInButton;
-    }
-    return props.inverted ? invertedButtonStyles : buttonStyles;
-}
-const invertedButtonStyles = css`
     background-color: white;
     color: black;
     border: 1px solid black;
-    &:hover {
-        background-color: black;
-        color: white;
-        border: none;
-    }
-`
+  }
+`;
+const getButtonStyles = (props) => {
+  if (props.isGoogleSignIn) {
+    return googleSignInButton;
+  }
+  return props.inverted ? invertedButtonStyles : buttonStyles;
+};
+const invertedButtonStyles = css`
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  &:hover {
+    background-color: black;
+    color: white;
+    border: none;
+  }
+`;
 const googleSignInButton = css`
-    background-color: #4285f4;
-    &:hover {
-      background-color: #357ae8;
-      color:#ccc;
-      border: none;
-    }
-`
+  background-color: #4285f4;
+  &:hover {
+    background-color: #357ae8;
+    color: #ccc;
+    border: none;
+  }
+`;
 
 export const CustomButtonContainer = styled.button`
   min-width: 165px;
