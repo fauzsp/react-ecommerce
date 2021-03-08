@@ -4,15 +4,17 @@ import { connect } from "react-redux";
 import WithSpinner from "../../components/commons/spinner/spinner.component";
 import { fetchCollectionStartAsync } from "../../redux/shop/shop.action.js";
 import CategoryPage from "../category/category-page.component";
-import { createStructuredSelector } from "reselect";
 import CategoryPageContainer from "../../pages/category/category-page-container";
 import CollectionsOverviewContainer from "../../components/collections-overview/collection-overview-container";
-import { selectCollectionIsRendered } from "../../redux/shop/shop.selector.js";
 import "./shop.component.scss";
 
-const CollectionPageWithSpinner = WithSpinner(CategoryPage);
 class ShopPage extends React.Component {
   componentDidMount() {
+    // fetch(
+    //   `https://firestore.googleapis.com/v1/projects/ecommerce-db-1446a/databases/(default)/documents/collections`
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => console.log(data, "data"));
     const { fetchCollectionStartAsync } = this.props;
     fetchCollectionStartAsync();
   }

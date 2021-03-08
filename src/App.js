@@ -23,7 +23,6 @@ class App extends React.Component {
   componentDidMount() {
     const { setCurrentUser, ToggleCartHidden, hidden } = this.props;
     if (!hidden) {
-      console.log(hidden, "hello");
       ToggleCartHidden();
     }
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userRepo) => {
